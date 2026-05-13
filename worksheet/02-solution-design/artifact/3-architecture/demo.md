@@ -1,58 +1,44 @@
 ---
-artifact: 3 — Demo kiến trúc dữ liệu
-format: sơ đồ xử lý + bảng thành phần
+artifact: 3 — Demo kiến trúc dữ liệu/RAG
+format: Mermaid + mô tả ngắn
 ---
 
-# demo.md — Demo kiến trúc dữ liệu
+# demo.md — Demo kiến trúc “deadline/policy phải có nguồn”
 
-File này dùng để đặt sơ đồ và mô tả ngắn cách hệ thống giảm rủi ro.
+## 1) Sơ đồ luồng (Mermaid)
 
----
+```mermaid
+flowchart TD
+  U[User] --> Q[User question]
+  Q --> R{Risk router\n(deadline/policy/tuition?)}
 
-## 1. Sơ đồ cách hệ thống xử lý
+  R -- No --> LLM1[LLM answer\n(normal FAQ)]
+  LLM1 --> UI1[UI response]
 
-```text
-[Đặt sơ đồ ở đây]
+  R -- Yes --> RET[Retriever\nquery KB]
+  RET --> KB[(Authoritative KB\npages + PDFs\nwith last_updated)]
+  KB --> RET
+  RET --> F{Freshness gate\nsource exists & not stale?}
 
-Ví dụ khung:
+  F -- Yes --> LLM2[LLM grounded answer\nmust cite source]
+  LLM2 --> UI2[UI shows ✅ verified\nsource + date]
 
-Người dùng hỏi
-  -> Phân loại câu hỏi
-  -> Có phải câu hỏi rủi ro cao không?
-      -> Không: AI trả lời như bình thường
-      -> Có: Tra nguồn chính thức
-          -> Có dữ liệu: AI trả lời kèm nguồn
-          -> Không có dữ liệu: Chuyển sang người thật
-  -> Ghi lại để theo dõi lỗi
+  F -- No --> H[Human handoff\n(hotline/email/agent queue)]
+  H --> UI3[UI shows ⚠ cannot verify\nno specific date + CTA]
+
+  UI2 --> LOG[(Telemetry/logs)]
+  UI3 --> LOG
+  UI1 --> LOG
+  LOG --> QA[Review failures\nupdate KB/tests]
 ```
 
----
-
-## 2. Thành phần chính
+## 2) Thành phần chính (tóm tắt)
 
 | Thành phần | Nhận gì? | Làm gì? | Trả ra gì? |
 |---|---|---|---|
-| Phân loại câu hỏi | Câu hỏi của người dùng | Xác định có rủi ro cao không | Trả lời thường / cần kiểm tra nguồn |
-| Nguồn chính thức | Chủ đề cần kiểm tra | Tìm dữ liệu mới nhất | Thông tin + nguồn |
-| Bộ xử lý khi thiếu nguồn | Kết quả không có dữ liệu | Không cho AI đoán | Yêu cầu chuyển sang người thật |
-| Ghi lại lỗi | Câu hỏi + kết quả | Lưu lỗi để xem lại | Danh sách lỗi lặp lại |
-
----
-
-## 3. Khi hệ thống gặp vấn đề
-
-| Khi nào lỗi xảy ra? | Hệ thống làm gì? | Người dùng thấy gì? |
-|---|---|---|
-| Nguồn chính thức không có dữ liệu | | |
-| Nguồn bị lỗi hoặc quá chậm | | |
-| Câu hỏi vượt phạm vi AI | | |
-| Lỗi này lặp lại nhiều lần | | |
-
----
-
-## 4. Kiểm tra nhanh
-
-- [ ] Sơ đồ không chỉ là “AI trả lời tốt hơn”, mà có bước kiểm tra cụ thể.
-- [ ] Có cách xử lý khi thiếu dữ liệu.
-- [ ] Có cách chuyển sang người thật.
-- [ ] Có cách theo dõi để lần sau sửa tốt hơn.
+| Risk router | Câu hỏi | Phân loại “risk-high” (deadline/policy/tiền) | Nhánh normal vs risk-high |
+| KB | Nội dung chính thức | Lưu trang tuyển sinh/PDF + `last_updated` + `url` | Document chunks |
+| Retriever | Query | Lấy đoạn liên quan + metadata nguồn | Context + citations |
+| Freshness gate | Context + metadata | Chặn trả lời ngày cụ thể nếu thiếu nguồn/nguồn stale | allow / block |
+| Human handoff | Case risk-high bị block | Điều hướng hotline/email/tư vấn viên | Kênh xác nhận |
+| Telemetry | Logs | Ghi FAIL/UNCLEAR + loại câu hỏi | Input cho cải thiện |

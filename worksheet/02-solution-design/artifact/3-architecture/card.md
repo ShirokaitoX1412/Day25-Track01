@@ -1,76 +1,35 @@
----
-artifact: 3 — Lớp kiến trúc dữ liệu
-bai-tap: 2 — Thiết kế giải pháp
-demo: ./demo.md
----
+# card.md — Lớp 3: Kiến trúc dữ liệu/RAG đảm bảo “có nguồn thì trả lời”
 
-# card.md — Lớp kiến trúc dữ liệu
+## 1) Rủi ro xử lý
 
-**Tình huống xử lý**: T-__  
-Xem `../../1-map-and-format.md` Phần A.
+- ID tình huống: **T-02, T-03, T-04, T-11, T-12**
+- Mẫu lỗi: model trả lời theo “tri thức chung” hoặc dữ liệu stale, không kèm nguồn chính thức
 
----
+## 2) Tầng giải pháp
 
-## 1. Giải pháp là gì?
+Nếu không có hệ dữ liệu/grounding tốt, prompt chỉ giảm rủi ro chứ không đảm bảo trả lời đúng.
+Kiến trúc cần đảm bảo:
 
-[Viết 2-3 câu. Nói rõ hệ thống cần thêm nguồn dữ liệu, bước kiểm tra, cách chuyển câu hỏi hoặc cách ghi lại lỗi nào.]
+- Câu hỏi rủi ro cao → **bắt buộc** truy xuất nguồn chính thức
+- Nguồn quá cũ/không có → **không được** nêu ngày/điều kiện → fallback an toàn (escalate)
 
-Ví dụ:
+## 3) Bản demo
 
-> Với câu hỏi về học bổng, hệ thống phải tra nguồn tuyển sinh chính thức trước khi AI trả lời. Nếu nguồn không có dữ liệu hoặc bị lỗi, AI không được đoán mà chuyển câu hỏi cho tư vấn viên.
+- File demo: `./demo.md`
+- Người phản biện cần thấy:
+  - Router nhận diện “deadline/policy”
+  - Retrieval từ KB có `last_updated`
+  - Freshness gate + human handoff
+  - Logging để cải thiện KB
 
----
+## 4) Tác dụng phụ & cách giảm
 
-## 2. Vì sao sửa ở lớp kiến trúc dữ liệu?
+- Tác dụng phụ: phụ thuộc chất lượng KB; tăng chi phí vận hành/cập nhật; có thể trả lời chậm hơn.
+  - Giảm bằng cách: cache câu hỏi phổ biến; batch update theo lịch; chỉ bật freshness gate cho “risk-high”.
 
-[Chọn 1-2 ý đúng với giải pháp của nhóm.]
+## 5) Hành động phòng vệ
 
-- Nguyên nhân chính là thiếu nguồn đúng hoặc nguồn cũ.
-- AI đang phải tự nhớ thông tin thay vì đọc từ nguồn đáng tin cậy.
-- Cần kiểm tra dữ liệu trước khi câu trả lời được tạo ra.
-- Cần ghi lại lỗi để nhóm biết lỗi nào lặp lại nhiều.
-
-**Hành động phòng vệ chính**:
-
-- [ ] Ngăn lỗi bằng nguồn dữ liệu đúng
-- [ ] Phát hiện khi nguồn thiếu hoặc lỗi
-- [ ] Khắc phục bằng cách chuyển sang người thật
-- [ ] Ghi lại lỗi để cải thiện sau
-
----
-
-## 3. Demo nằm ở đâu?
-
-**File demo**: [`demo.md`](./demo.md)
-
-Demo cần có:
-
-- Sơ đồ cách dữ liệu đi qua hệ thống
-- Nguồn dữ liệu chính thức
-- Bước kiểm tra trước khi AI trả lời
-- Cách xử lý khi nguồn thiếu, lỗi hoặc quá cũ
-- Cách ghi lại hoặc theo dõi lỗi
-
----
-
-## 4. Tác dụng phụ
-
-**Có thể gây vấn đề gì?**
-
-[Ví dụ: trả lời chậm hơn, phụ thuộc vào nguồn dữ liệu, tốn công duy trì, hệ thống phức tạp hơn.]
-
-**Nhóm giảm vấn đề đó bằng cách nào?**
-
-[Ví dụ: lưu tạm dữ liệu phổ biến, có thông báo khi nguồn lỗi, đặt người phụ trách cập nhật nguồn, giới hạn chỉ áp dụng với câu hỏi rủi ro cao.]
-
----
-
-## 5. Checklist trước khi nộp
-
-- [ ] Sơ đồ cho thấy dữ liệu đi từ đâu đến đâu.
-- [ ] Có bước kiểm tra nguồn trước khi AI trả lời.
-- [ ] Có cách xử lý khi không có dữ liệu.
-- [ ] Có cách chuyển sang người thật với tình huống rủi ro cao.
-- [ ] Có cách biết lỗi này có đang lặp lại không.
-
-**Người phụ trách**: [Tên thành viên]
+- [x] Ngăn
+- [x] Phát hiện
+- [x] Khắc phục
+- [ ] Thông báo

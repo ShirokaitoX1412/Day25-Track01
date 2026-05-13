@@ -1,46 +1,41 @@
 ---
-artifact: 1 — Demo giao diện
-format: phác thảo / ảnh / HTML / các màn hình chính
+artifact: 1 — Demo UI/UX
+format: ASCII wireframe + flow
 ---
 
-# demo.md — Demo giao diện
+# demo.md — Demo UI/UX cho câu hỏi deadline/policy
 
-File này dùng để đặt phần trực quan của giải pháp.
-
-Nếu nhóm có ảnh, bản vẽ hoặc link prototype, đặt link vào đây. Nếu làm bằng Markdown, dùng khung bên dưới.
-
----
-
-## 1. Màn hình chính
+## 1) ASCII wireframe (trong chat)
 
 ```text
-[Đặt phác thảo màn hình ở đây]
+User: Hạn chót nộp hồ sơ học bổng Data & AI 2026 là ngày nào? Em cần ngày chính xác.
+
+Bot:
+  [⚠ Chưa thể xác minh ngày chính xác]
+  Mình chưa tìm thấy thông báo chính thức về “Học bổng Data & AI 2026” trong nguồn dữ liệu hiện tại,
+  nên mình không thể đưa ra một ngày cụ thể để tránh bạn bị nộp sai hạn.
+
+  Bạn có thể xác minh nhanh theo 1 trong 2 cách:
+  1) Mở trang thông báo học bổng (nguồn chính thức)  -> [Mở trang nguồn]
+  2) Liên hệ phòng tuyển sinh                               -> [Gọi hotline] [Gửi email]
+
+  (Gợi ý) Nếu bạn cho mình biết tên học bổng chính xác + cơ sở + đợt xét tuyển, mình có thể giúp bạn tìm đúng trang nguồn.
 ```
 
----
+## 2) Trạng thái “Đã xác minh” khi có nguồn
 
-## 2. Trạng thái cần minh họa
+```text
+Bot:
+  [✅ Đã xác minh]
+  Deadline nộp hồ sơ: 01/06/2026
+  Nguồn: Thông báo học bổng (PDF) — cập nhật 01/05/2026  -> [Mở PDF]
+  Nếu bạn cần xác nhận lần cuối:                           [Gọi hotline]
+```
 
-| Trạng thái | Người dùng thấy gì? | Người dùng làm gì tiếp? |
-|---|---|---|
-| Có nguồn xác minh | | |
-| Chưa có nguồn xác minh | | |
-| AI không nên tự trả lời | | |
-| Cần chuyển sang người thật | | |
+## 3) UI flow (tóm tắt)
 
----
-
-## 3. Ghi chú cho từng thành phần
-
-- [Thành phần 1]: [vị trí, nội dung, hành vi]
-- [Thành phần 2]: [vị trí, nội dung, hành vi]
-- [Thành phần 3]: [vị trí, nội dung, hành vi]
-
----
-
-## 4. Kiểm tra nhanh
-
-- [ ] Nhìn vào demo là hiểu rủi ro đang được chặn ở đâu.
-- [ ] Có trạng thái khi AI không có đủ thông tin.
-- [ ] Có cách chuyển sang người thật.
-- [ ] Câu chữ đủ ngắn để đặt trên màn hình thật.
+```text
+User hỏi -> Risk router phát hiện "deadline/policy"
+  -> Nếu có nguồn + đủ mới: hiển thị badge ✅ + nguồn + CTA
+  -> Nếu thiếu/nguồn cũ:  hiển thị badge ⚠ + không nêu ngày + CTA escalate
+```

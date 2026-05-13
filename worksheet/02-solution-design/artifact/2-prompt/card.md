@@ -1,76 +1,31 @@
----
-artifact: 2 — Lớp chỉ dẫn AI
-bai-tap: 2 — Thiết kế giải pháp
-demo: ./demo.md
----
+# card.md — Lớp 2: Prompt/Guardrails chống bịa deadline/policy
 
-# card.md — Lớp chỉ dẫn AI
+## 1) Rủi ro xử lý
 
-**Tình huống xử lý**: T-__  
-Xem `../../1-map-and-format.md` Phần A.
+- ID tình huống: **T-02, T-03, T-04, T-05, T-10**
+- Mẫu lỗi: “helpful guessing”, sycophancy dưới áp lực, làm theo prompt injection
 
----
+## 2) Tầng giải pháp
 
-## 1. Giải pháp là gì?
+- Prompt là lớp **ngăn chặn trực tiếp hành vi**: không cho phép nêu ngày cụ thể nếu không có nguồn.
+- Prompt cũng định nghĩa tiêu chuẩn “đúng” để chấm: có nguồn hoặc nói không thể xác minh + routing.
 
-[Viết 2-3 câu. Nói rõ nhóm sẽ thêm luật, giới hạn hoặc ví dụ mẫu nào để AI trả lời an toàn hơn.]
+## 3) Bản demo
 
-Ví dụ:
+- File demo: `./demo.md`
+- Nội dung demo:
+  - System prompt template (policy)
+  - Ví dụ PASS cho T-02/T-04
+  - Ví dụ FAIL (để đối chiếu khi chấm)
 
-> Khi người dùng hỏi ngày, số tiền hoặc chính sách tuyển sinh, AI chỉ được trả lời nếu có nguồn chính thức. Nếu thiếu nguồn, AI phải nói rõ là chưa xác minh được và chuyển cho tư vấn viên.
+## 4) Tác dụng phụ & cách giảm
 
----
+- Tác dụng phụ: trả lời “từ chối” nhiều → giảm trải nghiệm.
+  - Giảm bằng cách: chỉ áp dụng rule cứng cho nhóm rủi ro cao (deadline/policy/tiền), còn FAQ thường trả lời bình thường.
 
-## 2. Vì sao sửa ở lớp chỉ dẫn AI?
+## 5) Hành động phòng vệ
 
-[Chọn 1-2 ý đúng với giải pháp của nhóm.]
-
-- AI đang trả lời quá tự tin khi thiếu nguồn.
-- AI đang chiều theo giả định sai của người dùng.
-- AI cần luật rõ: khi nào trả lời, khi nào từ chối, khi nào chuyển sang người thật.
-- Có thể sửa nhanh bằng prompt trước khi thay đổi hệ thống lớn hơn.
-
-**Hành động phòng vệ chính**:
-
-- [ ] Ngăn câu trả lời sai ngay từ đầu
-- [ ] Bắt buộc nêu nguồn khi nói về thông tin quan trọng
-- [ ] Từ chối trả lời khi thiếu căn cứ
-- [ ] Chuyển người thật khi vượt phạm vi
-
----
-
-## 3. Demo nằm ở đâu?
-
-**File demo**: [`demo.md`](./demo.md)
-
-Demo cần có:
-
-- Luật chính cho AI
-- Mẫu câu khi thiếu nguồn
-- Mẫu câu khi cần chuyển sang người thật
-- 2-3 ví dụ hỏi đáp để kiểm tra luật
-- Kết quả thử lại với vài tình huống từ Bài 1
-
----
-
-## 4. Tác dụng phụ
-
-**Có thể gây vấn đề gì?**
-
-[Ví dụ: AI từ chối quá nhiều, câu trả lời cứng, trải nghiệm chậm hơn vì phải kiểm tra nguồn.]
-
-**Nhóm giảm vấn đề đó bằng cách nào?**
-
-[Ví dụ: chỉ bắt buộc nguồn với thông tin rủi ro cao; tách từ chối mềm và từ chối cứng; kiểm tra lại bằng bộ tình huống.]
-
----
-
-## 5. Checklist trước khi nộp
-
-- [ ] Luật viết đủ cụ thể để AI làm theo.
-- [ ] Có mẫu câu khi AI không có đủ thông tin.
-- [ ] Có ví dụ cho tình huống dễ sai.
-- [ ] Có thử lại bằng tình huống trong Bài 1.
-- [ ] Không dùng prompt như cách duy nhất nếu lỗi nằm ở dữ liệu hoặc quy trình.
-
-**Người phụ trách**: [Tên thành viên]
+- [x] Ngăn
+- [ ] Phát hiện
+- [x] Khắc phục
+- [x] Thông báo

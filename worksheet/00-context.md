@@ -2,23 +2,16 @@
 title: 00 — Bối cảnh sản phẩm của nhóm
 section: Day 25 — dùng lại cho mọi cuộc trò chuyện với AI
 format: Nhóm
-time: Điền 5 phút đầu buổi
 ---
 
 # 00-context.md — Bối cảnh sản phẩm của nhóm
 
-Điền file này một lần ở đầu buổi. Sau đó, mỗi lần dùng AI, hãy đưa toàn bộ nội dung file này vào đầu cuộc trò chuyện.
-
-Lý do: AI không tự nhớ bối cảnh giữa các cuộc trò chuyện. Nếu mỗi lần đưa bối cảnh khác nhau, câu trả lời cũng sẽ lệch.
-
----
-
 ## 1. Sản phẩm
 
-- **Tên sản phẩm / bot**: [...]
-- **Sản phẩm giúp ai làm gì**: [...]
-- **Người dùng gặp sản phẩm ở đâu**: [website / ứng dụng / chatbot / kiosk / nội bộ công ty]
-- **Giai đoạn hiện tại**: [chuẩn bị ra mắt / đang thử nghiệm / đã chạy thật]
+- **Tên sản phẩm / bot**: Chatbot tư vấn tuyển sinh (website tuyển sinh trường đại học — tham chiếu FPT University)
+- **Sản phẩm giúp ai làm gì**: Học sinh lớp 12 / phụ huynh tra cứu nhanh thông tin tuyển sinh (ngành, hồ sơ, học phí, học bổng, timeline, phương thức xét tuyển) và được dẫn tới **nguồn chính thức**.
+- **Người dùng gặp sản phẩm ở đâu**: Website tuyển sinh chính thức (ví dụ `admissions.fpt.edu.vn`), có branding của trường → dễ tạo cảm giác “thông tin chính thống”.
+- **Giai đoạn hiện tại**: Chuẩn bị triển khai / pilot cho mùa tuyển sinh 2026.
 
 ---
 
@@ -26,55 +19,43 @@ Lý do: AI không tự nhớ bối cảnh giữa các cuộc trò chuyện. Nế
 
 **AI được làm gì**
 
-- [...]
-- [...]
-- [...]
+- Trả lời FAQ theo **knowledge base chính thức** (trang tuyển sinh, thông báo, quy chế, học phí/học bổng).
+- Tóm tắt thông tin và **trích dẫn nguồn** (link + ngày cập nhật nếu có).
+- Hỏi lại để làm rõ (ngành, cơ sở, đợt xét tuyển, hệ đào tạo, năm).
+- Hướng dẫn kênh hỗ trợ: hotline/email/phòng tuyển sinh; tạo “checklist chuẩn bị hồ sơ”.
 
 **AI không được làm gì**
 
-- [...]
-- [...]
-- [...]
+- Không “đoán” hoặc **bịa** deadline, học phí, chính sách học bổng, điều kiện xét tuyển.
+- Không khẳng định chắc chắn “đậu / được học bổng” dựa trên thông tin thiếu.
+- Không thay thế kênh xác nhận chính thức cho trường hợp đặc thù (giấy tờ, quy đổi chứng chỉ, khiếu nại).
+- Không thu thập hoặc yêu cầu PII nhạy cảm (CCCD, tài khoản ngân hàng, mật khẩu); không xử lý dữ liệu của thí sinh khác.
 
 **Vì sao có giới hạn này**
 
-[Ví dụ: rủi ro pháp lý, an toàn người dùng, quy định ngành, dữ liệu chưa đủ tin cậy.]
+- Thông tin sai về deadline/policy → học sinh nộp sai hạn → mất cơ hội tuyển sinh/học bổng (thiệt hại khó đảo ngược).
+- Website “chính thức” làm tăng mức tin tưởng → rủi ro khuếch đại khi AI sai.
 
 ---
 
 ## 3. Người dùng
 
-- **Là ai**: [tuổi, vai trò, trình độ công nghệ, bối cảnh sử dụng]
-- **Họ hỏi AI khi nào**: [...]
-- **Họ cần quyết định gì sau khi hỏi AI**: [...]
-- **Khi nào họ dễ bị tổn thương / dễ hiểu sai**: [...]
-- **Họ thường tin AI đến mức nào**: [tin ngay / có kiểm tra lại / cần người thật xác nhận]
+- **Là ai**: Học sinh lớp 12 (17–18 tuổi) và phụ huynh; nhiều người không rành quy trình/thuật ngữ.
+- **Họ hỏi AI khi nào**: Buổi tối, sát deadline, hoặc lúc cần quyết định nhanh (chọn ngành, chọn đợt nộp).
+- **Họ cần quyết định gì sau khi hỏi AI**: Chuẩn bị hồ sơ, nộp đơn, đóng phí, đăng ký xét học bổng, đặt lịch tư vấn.
+- **Khi nào dễ tổn thương / dễ hiểu sai**: Khi bị áp lực thời gian; khi câu hỏi mơ hồ (đợt nào/cơ sở nào); khi nghe “tin đồn” từ bạn bè.
+- **Mức tin vào AI**: Cao (vì đặt trên website trường), thường làm theo ngay nếu AI trả lời chắc chắn.
 
 ---
 
 ## 4. Bối cảnh ngành
 
-- **Sự cố tương tự đã từng xảy ra**: [...]
-- **Quy định hoặc ràng buộc liên quan**: [...]
-- **Nguồn chính thức nên ưu tiên**: [...]
+- **Sự cố tương tự**: Chatbot có thể trả lời sai chính sách/điều kiện (đặc biệt deadline) → dẫn tới khiếu nại và mất uy tín.
+- **Nguồn chính thức nên ưu tiên**: Trang tuyển sinh, thông báo PDF, quy chế tuyển sinh, trang học phí/học bổng, hotline/email phòng tuyển sinh.
 
 ---
 
 ## 5. Ghi chú thêm
 
-[Điền bất kỳ thông tin nào giúp AI hiểu bối cảnh: hạn chót, quy mô nhóm, nguồn dữ liệu, chính sách nội bộ, ví dụ câu hỏi thật.]
-
----
-
-## Cách dùng
-
-```text
-1. Mở công cụ AI phù hợp với bước đang làm.
-2. Đưa toàn bộ nội dung file này vào đầu cuộc trò chuyện.
-3. Chọn prompt tham khảo từ thư mục ../prompts/ và chỉnh lại nếu cần.
-4. Đọc lại bản nháp AI tạo ra.
-5. Sửa lại cho đúng bối cảnh nhóm.
-6. Lưu kết quả vào đúng file trong worksheet/.
-```
-
-Ghi chú: nội dung trong `[...]` là chỗ cần điền. Sau khi điền xong, xóa dấu ngoặc nếu không cần giữ.
+- “Thông tin nhạy cảm / rủi ro cao” trong dự án này: **deadline**, **điều kiện học bổng**, **lệ phí**, **yêu cầu hồ sơ**, **chính sách xét tuyển**.
+- Nguyên tắc trả lời an toàn: “Có nguồn thì trả lời + dẫn nguồn; không có nguồn thì nói không chắc + hướng dẫn kênh xác nhận”.
